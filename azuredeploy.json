@@ -1,0 +1,114 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Region": {
+            "type": "string",
+            "allowedValues": [
+                "eastasia",
+                "southeastasia",
+                "centralus",         
+                "eastus",            
+                "eastus2",           
+                "westus",            
+                "northcentralus",    
+                "southcentralus",    
+                "northeurope",       
+                "westeurope",        
+                "japanwest",         
+                "japaneast",         
+                "brazilsouth",       
+                "australiaeast",     
+                "australiasoutheast",
+                "southindia",        
+                "centralindia",      
+                "westindia",         
+                "canadacentral",     
+                "canadaeast",        
+                "uksouth",           
+                "ukwest",            
+                "westcentralus",     
+                "westus2",           
+                "koreacentral",      
+                "koreasouth",        
+                "francecentral",     
+                "francesouth",       
+                "australiacentral",  
+                "australiacentral2", 
+                "uaecentral",        
+                "uaenorth",          
+                "southafricanorth",  
+                "southafricawest",   
+                "switzerlandnorth",  
+                "switzerlandwest",   
+                "germanynorth",      
+                "germanywestcentral",
+                "norwaywest",        
+                "norwayeast",        
+                "brazilsoutheast",   
+                "westus3"
+
+            ]
+        }
+    },
+    "functions": [],
+    "variables": {
+        "DNSZones":[
+            "privatelink.azure-automation.net",
+            "privatelink.database.windows.net",
+            "privatelink.blob.core.windows.net",
+            "privatelink.table.core.windows.net",
+            "privatelink.queue.core.windows.net",
+            "privatelink.file.core.windows.net",
+            "privatelink.web.core.windows.net",
+            "privatelink.dfs.core.windows.net",
+            "privatelink.documents.azure.com",
+            "privatelink.mongo.cosmos.azure.com",
+            "privatelink.cassandra.cosmos.azure.com",
+            "privatelink.gremlin.cosmos.azure.com",
+            "privatelink.table.cosmos.azure.com",
+            "privatelink.postgres.database.azure.com",
+            "privatelink.mysql.database.azure.com",
+            "privatelink.mariadb.database.azure.com",
+            "privatelink.vaultcore.azure.net",
+            "[concat('privatelink.', parameters('Region'), '.azmk8s.io')]",
+            "privatelink.search.windows.net",
+            "privatelink.azurecr.io",
+            "privatelink.azconfig.io",
+            "[concat('privatelink.', parameters('Region'), '.backup.windowsazure.com')]",
+            "privatelink.servicebus.windows.net",
+            "privatelink.azure-devices.net",
+            "privatelink.eventgrid.azure.net",
+            "privatelink.azurewebsites.net",
+            "privatelink.api.azureml.ms",
+            "privatelink.notebooks.azure.net",
+            "privatelink.service.signalr.net",
+            "privatelink.monitor.azure.com",
+            "privatelink.oms.opinsights.azure.com",
+            "privatelink.ods.opinsights.azure.com",
+            "privatelink.agentsvc.azure-automation.net",
+            "privatelink.cognitiveservices.azure.com",
+            "privatelink.afs.azure.net",
+            "privatelink.datafactory.azure.net",
+            "privatelink.redis.cache.windows.net",
+            "privatelink.azure.com"
+
+        ]
+    },
+    "resources": [
+    
+        {
+            "type": "Microsoft.Network/privateDnsZones",
+            "apiVersion": "2018-09-01",
+            "copy": {
+                "count": "[length(variables('DNSZones'))]",
+                "name": "dnsLoop"
+            },
+            "name": "[variables('DNSZones')[copyIndex()]]",
+            "location": "global"
+        }
+
+
+    ],
+    "outputs": {}
+}
