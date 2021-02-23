@@ -2,8 +2,11 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "Region": {
+        "Resource-Region": {
             "type": "string",
+            "metadata": {
+                "description": "For Zones like azmk8s.io, that are regional"
+            },
             "allowedValues": [
                 "eastasia",
                 "southeastasia",
@@ -47,7 +50,6 @@
                 "norwayeast",        
                 "brazilsoutheast",   
                 "westus3"
-
             ]
         }
     },
@@ -71,11 +73,11 @@
             "privatelink.mysql.database.azure.com",
             "privatelink.mariadb.database.azure.com",
             "privatelink.vaultcore.azure.net",
-            "[concat('privatelink.', parameters('Region'), '.azmk8s.io')]",
+            "[concat('privatelink.', parameters('Resource-Region'), '.azmk8s.io')]",
             "privatelink.search.windows.net",
             "privatelink.azurecr.io",
             "privatelink.azconfig.io",
-            "[concat('privatelink.', parameters('Region'), '.backup.windowsazure.com')]",
+            "[concat('privatelink.', parameters('Resource-Region'), '.backup.windowsazure.com')]",
             "privatelink.servicebus.windows.net",
             "privatelink.azure-devices.net",
             "privatelink.eventgrid.azure.net",
